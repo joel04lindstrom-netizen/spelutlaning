@@ -1,0 +1,68 @@
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 220px;
+  background: #1e293b;
+  color: white;
+  padding: 10px;
+  transition: all 0.3s ease;
+}
+
+.sidebar.hidden {
+  margin-left: -240px;
+}
+
+.sidebar h2 {
+  text-align: center;
+}
+
+.sidebar button {
+  width: 100%;
+  padding: 12px;
+  margin: 6px 0;
+  background: #334155;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.sidebar button:hover {
+  background: #475569;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.content.sidebar-hidden {
+  margin-left: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  background: #f3f4f6;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+ul li:hover {
+  background: #e2e8f0;
+  cursor: pointer;
+}

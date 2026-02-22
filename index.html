@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spelutlåning</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button id="toggleMenu" onclick="toggleSidebar()" style="position:fixed;top:10px;left:10px;z-index:1000;">
+  ☰
+</button>
+
+<div class="app">
+  <nav class="sidebar">
+    <h2>MENY</h2>
+    <button onclick="showView('scan')">📷 Låna / Lämna</button>
+    <button onclick="showView('active')">📋 Aktiva lån</button>
+    <button onclick="showView('cards')">👤 Lånekort</button>
+    <button onclick="showView('games')">🎲 Spel</button>
+    <button onclick="showView('history')">📚 Historik</button>
+    <button onclick="showView('stats')">📊 Statistik</button>
+  </nav>
+
+  <main class="content" id="view">
+    <h1>Välkommen</h1>
+    <p>Skanna ett lånekort för att börja.</p>
+  </main>
+</div>
+
+<script src="https://unpkg.com/html5-qrcode"></script>
+<script src="app.js"></script>
+</body>
+</html>
