@@ -72,13 +72,28 @@ const cardsData = [
 
 const gamesData = [
   { gameId: "kalleha", title: "Kalleha" },
-  { gameId: "tre_i_rad", title: "Tre i rad" },
-  { gameId: "fyra_i_rad", title: "Fyra i rad" },
+  { gameId: "tre_i_rad_1", title: "Tre i rad (1)" },
+  { gameId: "tre_i_rad_2", title: "Tre i rad (2)" },
+  { gameId: "tre_i_rad_3", title: "Tre i rad (3)" },
+  { gameId: "fyra_i_rad_1", title: "Fyra i rad (1)" },
+  { gameId: "fyra_i_rad_2", title: "Fyra i rad (2)" },
   { gameId: "fia_med_knuff", title: "Fia med knuff" },
   { gameId: "alphaphet", title: "Alphaphet" },
   { gameId: "skipo", title: "Skipo" },
   { gameId: "kortlek_1", title: "Kortlek (1)" },
-  { gameId: "kortlek_2", title: "Kortlek (2)" }
+  { gameId: "kortlek_2", title: "Kortlek (2)" },
+  { gameId: "rush hour", title: "Rush hour (1)" },
+  { gameId: "rush hour_2", title: "Rush hour (2)" },
+  { gameId: "rush hour_3", title: "Rush hour (3)" },
+  { gameId: "vemdär", title: "Vem där" },
+  { gameId: "othello", title: "Othello" },
+  { gameId: "twister", title: "Twister" },
+  { gameId: "shut_the_box", title: "Shut the box" },
+  { gameId: "lusen", title: "Lusen" },
+  { gameId: "skipbo", title: "Skipbo" },
+  { gameId: "uno", title: "Uno" },
+  { gameId: "rattfällan", title: "Råttfällan" },
+  { gameId: "kortlek", title: "Kortlek" }
 ];
 
 // ================== INIT FIRESTORE ==================
@@ -303,4 +318,5 @@ function toggleSidebar() {
   sidebar.classList.toggle('hidden');
   content.classList.toggle('sidebar-hidden');
 }
+
 
