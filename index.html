@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spelutlåning</title>
   <link rel="stylesheet" href="style.css">
+  
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <!-- QR Scanner -->
+  <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
 
@@ -29,17 +35,6 @@
   </main>
 </div>
 
-<script src="https://unpkg.com/html5-qrcode"></script>
 <script src="app.js"></script>
-  const firebaseConfig = {
-  apiKey: "AIzaSyCzeXAjl3OCpwWdjB7WGvtbEM2WPN9fzXQ",
-  authDomain: "lanesystem-f6016.firebaseapp.com",
-  projectId: "lanesystem-f6016",
-  storageBucket: "lanesystem-f6016.firebasestorage.app",
-  messagingSenderId: "448843925064",
-  appId: "1:448843925064:web:489c79f301772d83cb3a7d"
-};
-
-const app = initializeApp(firebaseConfig);
 </body>
 </html>
