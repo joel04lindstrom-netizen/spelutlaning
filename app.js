@@ -66,7 +66,8 @@ const cardsData = [
   { cardId: "LK-47", name: "Theo" },
   { cardId: "LK-48", name: "Vaani" },
   { cardId: "LK-49", name: "Viggo" },
-  { cardId: "LK-50", name: "Yohan" }
+  { cardId: "LK-50", name: "Yohan" },
+  { cardId: "LK-51", name: "Jhanvi"}
 ];
 
 const gamesData = [
@@ -302,3 +303,4 @@ function toggleSidebar() {
   sidebar.classList.toggle('hidden');
   content.classList.toggle('sidebar-hidden');
 }
+
