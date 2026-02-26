@@ -5,20 +5,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Spelutlåning</title>
   <link rel="stylesheet" href="style.css">
-  
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
-  <!-- QR Scanner -->
-  <script src="https://unpkg.com/html5-qrcode"></script>
 </head>
 <body>
 
-<button id="toggleMenu" onclick="toggleSidebar()" style="position:fixed;top:10px;left:10px;z-index:1000;">
+<!-- Toggle-knapp för sidomeny -->
+<button id="toggleMenu" onclick="toggleSidebar()" 
+        style="position:fixed;top:10px;left:10px;z-index:1000;font-size:24px;cursor:pointer;">
   ☰
 </button>
 
 <div class="app">
+  <!-- Sidomeny -->
   <nav class="sidebar">
     <h2>MENY</h2>
     <button onclick="showView('scan')">📷 Låna / Lämna</button>
@@ -26,15 +23,22 @@
     <button onclick="showView('cards')">👤 Lånekort</button>
     <button onclick="showView('games')">🎲 Spel</button>
     <button onclick="showView('history')">📚 Historik</button>
-    <button onclick="showView('stats')">📊 Statistik</button>
   </nav>
 
+  <!-- Huvudinnehåll -->
   <main class="content" id="view">
     <h1>Välkommen</h1>
     <p>Skanna ett lånekort för att börja.</p>
   </main>
 </div>
 
+<!-- Html5 QR-scanner -->
+<script src="https://unpkg.com/html5-qrcode"></script>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<!-- Din app.js -->
 <script src="app.js"></script>
+
 </body>
 </html>
