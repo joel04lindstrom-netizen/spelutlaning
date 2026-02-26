@@ -8,14 +8,13 @@ const firebaseConfig = {
   appId: "1:448843925064:web:489c79f301772d83cb3a7d"
 };
 
-// Init Firebase
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// ======== GLOBAL VARS ========
+// ======== GLOBAL ========
 let qrScanner;
 
-// ================== INITIAL DATA ==================
+// ======== PERSONER ========
 const cardsData = [
   { cardId: "LK-01", name: "Adam" },
   { cardId: "LK-02", name: "Aditya" },
@@ -67,9 +66,10 @@ const cardsData = [
   { cardId: "LK-48", name: "Vaani" },
   { cardId: "LK-49", name: "Viggo" },
   { cardId: "LK-50", name: "Yohan" },
-  { cardId: "LK-51", name: "Jhanvi"}
+  { cardId: "LK-51", name: "Jhanvi" }
 ];
 
+// ======== SPEL ========
 const gamesData = [
   { gameId: "kalleha", title: "Kalleha" },
   { gameId: "tre_i_rad_1", title: "Tre i rad (1)" },
@@ -82,38 +82,38 @@ const gamesData = [
   { gameId: "skipo", title: "Skipo" },
   { gameId: "kortlek_1", title: "Kortlek (1)" },
   { gameId: "kortlek_2", title: "Kortlek (2)" },
-  { gameId: "rush hour", title: "Rush hour (1)" },
-  { gameId: "rush hour_2", title: "Rush hour (2)" },
-  { gameId: "rush hour_3", title: "Rush hour (3)" },
-  { gameId: "vemdär", title: "Vem där" },
+  { gameId: "rush_hour_1", title: "Rush Hour (1)" },
+  { gameId: "rush_hour_2", title: "Rush Hour (2)" },
+  { gameId: "rush_hour_3", title: "Rush Hour (3)" },
+  { gameId: "vemdar", title: "Vem där" },
   { gameId: "othello", title: "Othello" },
   { gameId: "twister", title: "Twister" },
   { gameId: "shut_the_box", title: "Shut the box" },
   { gameId: "lusen", title: "Lusen" },
   { gameId: "skipbo", title: "Skipbo" },
   { gameId: "uno", title: "Uno" },
-  { gameId: "rattfällan", title: "Råttfällan" },
+  { gameId: "rattfallan", title: "Råttfällan" },
   { gameId: "kortlek", title: "Kortlek" }
 ];
 
-// ================== INIT FIRESTORE ==================
+// ======== INIT DATA ========
 async function initData() {
   for (const c of cardsData) {
-    await db.collection("cards").doc(c.cardId).set({
-      name: c.name,
-      activeLoan: false
-    }, { merge: true });
+    await db.collection("cards").doc(c.cardId).set(
+      { name: c.name },
+      { merge: true }
+    );
   }
   for (const g of gamesData) {
-    await db.collection("games").doc(g.gameId).set({
-      title: g.title,
-      isLoaned: false
-    }, { merge: true });
+    await db.collection("games").doc(g.gameId).set(
+      { title: g.title, isLoaned: false },
+      { merge: true }
+    );
   }
 }
 initData();
 
-// ================== APP LOGIC ==================
+// ======== VIEWS ========
 async function showView(view) {
   const container = document.getElementById("view");
 
@@ -127,135 +127,105 @@ async function showView(view) {
   }
 
   if (view === "active") {
-    const loansSnap = await db.collection("activeLoans").get();
+    const snap = await db.collection("activeLoans").get();
     let html = "<h2>Aktiva lån</h2><ul>";
-    loansSnap.forEach(doc => {
-      const l = doc.data();
-      html += `<li>${l.name} har lånat ${l.gameTitle} (${l.loanedAt})</li>`;
+    snap.forEach(d => {
+      const l = d.data();
+      html += `<li>${l.name} – ${l.gameTitle}</li>`;
     });
-    html += "</ul><button onclick='showView(\"scan\")'>Tillbaka</button>";
+    html += "</ul>";
     container.innerHTML = html;
   }
 
   if (view === "cards") {
-    const cardsSnap = await db.collection("cards").get();
+    const snap = await db.collection("cards").get();
     let html = "<h2>Lånekort</h2><ul>";
-    cardsSnap.forEach(doc => {
-      const c = doc.data();
-      html += `<li>${c.name} (${doc.id}) - ${c.activeLoan ? "Har lån" : "Inget lån"}</li>`;
+    snap.forEach(d => {
+      html += `<li>${d.data().name} (${d.id})</li>`;
     });
-    html += "</ul><button onclick='showView(\"scan\")'>Tillbaka</button>";
+    html += "</ul>";
     container.innerHTML = html;
   }
 
   if (view === "games") {
-    const gamesSnap = await db.collection("games").get();
+    const snap = await db.collection("games").get();
     let html = "<h2>Spel</h2><ul>";
-    gamesSnap.forEach(doc => {
-      const g = doc.data();
-      html += `<li>${g.title} - ${g.isLoaned ? "Utlånad" : "Tillgänglig"}</li>`;
+    snap.forEach(d => {
+      html += `<li>${d.data().title} – ${d.data().isLoaned ? "Utlånad" : "Ledig"}</li>`;
     });
-    html += "</ul><button onclick='showView(\"scan\")'>Tillbaka</button>";
+    html += "</ul>";
     container.innerHTML = html;
   }
 
   if (view === "history") {
-    const histSnap = await db.collection("history").orderBy("timestamp", "desc").get();
+    const snap = await db.collection("history").orderBy("timestamp", "desc").get();
     let html = "<h2>Historik</h2><ul>";
-    histSnap.forEach(doc => {
-      const h = doc.data();
-      html += `<li>${h.timestamp.toDate().toLocaleString()}: ${h.name} ${h.action === "loan" ? "lånade" : "lämnade tillbaka"} ${h.gameTitle}</li>`;
+    snap.forEach(d => {
+      const h = d.data();
+      html += `<li>${h.name} ${h.action === "loan" ? "lånade" : "lämnade"} ${h.gameTitle}</li>`;
     });
-    html += "</ul><button onclick='showView(\"scan\")'>Tillbaka</button>";
-    container.innerHTML = html;
-  }
-
-  if (view === "stats") {
-    const histSnap = await db.collection("history").get();
-    let html = "<h2>Statistik</h2><ul>";
-    gamesData.forEach(g => {
-      const count = histSnap.docs.filter(h => h.data().gameTitle === g.title && h.data().action === "loan").length;
-      html += `<li>${g.title}: ${count} lån totalt</li>`;
-    });
-    html += "</ul><button onclick='showView(\"scan\")'>Tillbaka</button>";
+    html += "</ul>";
     container.innerHTML = html;
   }
 }
 
-// ================== QR-SCANNER ==================
+// ======== SCANNER ========
 function startScanner() {
   if (qrScanner) qrScanner.stop().catch(() => {});
-
   qrScanner = new Html5Qrcode("reader");
   qrScanner.start(
     { facingMode: "environment" },
     { fps: 10, qrbox: 250 },
-    qrCodeMessage => {
-      document.getElementById("scanResult").innerText =
-        "Skannad QR-kod: " + qrCodeMessage;
-      handleCardScan(qrCodeMessage);
-    },
-    errorMessage => {}
+    msg => handleCardScan(msg),
+    () => {}
   );
 }
 
-// ================== HANTERA KORT ==================
+// ======== CARD ========
 async function handleCardScan(cardId) {
   const doc = await db.collection("cards").doc(cardId).get();
   if (!doc.exists) {
-    alert("Kortet finns inte!");
+    alert("Kort finns inte");
     return;
   }
-  const card = doc.data();
-  const container = document.getElementById("view");
-  container.innerHTML = `
-    <h2>Kort identifierat</h2>
-    <p><strong>Kort-ID:</strong> ${cardId}</p>
+
+  document.getElementById("view").innerHTML = `
+    <h2>${doc.data().name}</h2>
     <button onclick="showBorrow('${cardId}')">Låna spel</button>
     <button onclick="showReturn('${cardId}')">Lämna tillbaka</button>
   `;
 }
 
-// ================== LÅNA SPEL ==================
+// ======== BORROW ========
 async function showBorrow(cardId) {
-  const cardRef = db.collection("cards").doc(cardId);
-  const cardDoc = await cardRef.get();
-  const card = cardDoc.data();
-  const container = document.getElementById("view");
-
-  if (card.activeLoan) {
-    container.innerHTML = `<h2>${card.name} har redan ett lån. Måste lämna tillbaka först.</h2>
-                           <button onclick="showView('scan')">Tillbaka</button>`;
+  const loan = await db.collection("activeLoans").doc(cardId).get();
+  if (loan.exists) {
+    alert("Du har redan ett lån");
+    showView("scan");
     return;
   }
 
-  const gamesSnap = await db.collection("games").where("isLoaned", "==", false).get();
-  if (gamesSnap.empty) {
-    container.innerHTML = `<h2>Inga spel är tillgängliga just nu</h2>
-                           <button onclick="showView('scan')">Tillbaka</button>`;
-    return;
-  }
-
-  let html = `<h2>Välj spel att låna för ${card.name}</h2><ul>`;
-  gamesSnap.forEach(g => {
-    html += `<li>${g.data().title} <button onclick="borrowGame('${cardId}','${g.id}','${g.data().title}')">Låna</button></li>`;
+  const games = await db.collection("games").where("isLoaned", "==", false).get();
+  let html = "<h2>Välj spel</h2><ul>";
+  games.forEach(g => {
+    html += `<li>${g.data().title}
+      <button onclick="borrowGame('${cardId}','${g.id}','${g.data().title}')">Låna</button>
+    </li>`;
   });
-  html += "</ul><button onclick='showView(\"scan\")'>Avbryt</button>";
-  container.innerHTML = html;
+  html += "</ul>";
+  document.getElementById("view").innerHTML = html;
 }
 
 async function borrowGame(cardId, gameId, gameTitle) {
-  const cardRef = db.collection("cards").doc(cardId);
-  const gameRef = db.collection("games").doc(gameId);
+  await db.collection("games").doc(gameId).update({ isLoaned: true });
 
-  await cardRef.update({ activeLoan: true });
-  await gameRef.update({ isLoaned: true });
+  const name = (await db.collection("cards").doc(cardId).get()).data().name;
 
   await db.collection("activeLoans").doc(cardId).set({
     cardId,
     gameId,
     gameTitle,
-    name: (await cardRef.get()).data().name,
+    name,
     loanedAt: new Date().toLocaleString()
   });
 
@@ -263,60 +233,51 @@ async function borrowGame(cardId, gameId, gameTitle) {
     cardId,
     gameId,
     gameTitle,
-    name: (await cardRef.get()).data().name,
+    name,
     action: "loan",
     timestamp: firebase.firestore.Timestamp.now()
   });
 
-  alert(`Spelet ${gameTitle} har lånats av ${(await cardRef.get()).data().name}`);
+  alert(`${name} lånade ${gameTitle}`);
   showView("scan");
 }
 
-// ================== ÅTERLÄMNA ==================
+// ======== RETURN ========
 async function showReturn(cardId) {
-  const cardRef = db.collection("cards").doc(cardId);
-  const cardDoc = await cardRef.get();
-  const card = cardDoc.data();
-  const container = document.getElementById("view");
-
-  if (!card.activeLoan) {
-    container.innerHTML = `<h2>${card.name} har inga aktiva lån.</h2>
-                           <button onclick="showView('scan')">Tillbaka</button>`;
+  const loan = await db.collection("activeLoans").doc(cardId).get();
+  if (!loan.exists) {
+    alert("Inget aktivt lån");
+    showView("scan");
     return;
   }
 
-  const loanDoc = await db.collection("activeLoans").doc(cardId).get();
-  const loan = loanDoc.data();
-
-  container.innerHTML = `<h2>Återlämna ${loan.gameTitle} för ${card.name}?</h2>
-                         <button onclick="returnGame('${cardId}','${loan.gameId}','${loan.gameTitle}')">Återlämna</button>
-                         <button onclick="showView('scan')">Avbryt</button>`;
+  const l = loan.data();
+  document.getElementById("view").innerHTML = `
+    <h2>Lämna tillbaka ${l.gameTitle}?</h2>
+    <button onclick="returnGame('${cardId}','${l.gameId}','${l.gameTitle}')">Ja</button>
+  `;
 }
 
 async function returnGame(cardId, gameId, gameTitle) {
-  await db.collection("cards").doc(cardId).update({ activeLoan: false });
   await db.collection("games").doc(gameId).update({ isLoaned: false });
   await db.collection("activeLoans").doc(cardId).delete();
+
+  const name = (await db.collection("cards").doc(cardId).get()).data().name;
 
   await db.collection("history").add({
     cardId,
     gameId,
     gameTitle,
-    name: (await db.collection("cards").doc(cardId).get()).data().name,
+    name,
     action: "return",
     timestamp: firebase.firestore.Timestamp.now()
   });
 
-  alert(`${(await db.collection("cards").doc(cardId).get()).data().name} har lämnat tillbaka ${gameTitle}`);
+  alert(`${name} lämnade tillbaka ${gameTitle}`);
   showView("scan");
 }
 
-// ================== SIDOMENY ==================
+// ======== SIDOMENY ========
 function toggleSidebar() {
-  const sidebar = document.querySelector('.sidebar');
-  const content = document.querySelector('.content');
-  sidebar.classList.toggle('hidden');
-  content.classList.toggle('sidebar-hidden');
+  document.querySelector(".sidebar").classList.toggle("hidden");
 }
-
-
