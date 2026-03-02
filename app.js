@@ -51,7 +51,8 @@ const gamesData = [
   { gameId: "lusen", title: "Lusen" },
   { gameId: "skipbo", title: "Skipbo" },
   { gameId: "uno_1", title: "Uno (1)" },
-  { gameId: "uno_2", title: "Uno (2)" }
+  { gameId: "uno_2", title: "Uno (2)" },
+  { gameId: "vem_där", title: "Vem där"}
 ];
 
 // ================== INIT FIRESTORE ==================
@@ -241,3 +242,4 @@ function toggleSidebar() {
   sidebar.classList.toggle('hidden');
   content.classList.toggle('sidebar-hidden');
 }
+
