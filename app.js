@@ -55,7 +55,32 @@ const gamesData = [
   { gameId: "vem_där", title: "Vem där"},
   { gameId: "rush_hour_1", title: "Rush hour (1)" },
   { gameId: "rush_hour_2", title: "Rush hour (2)" },
-  { gameId: "rush_hour_3", title: "Rush hour (3) "}
+  { gameId: "rush_hour_3", title: "Rush hour (3) "},
+  { gameId: "pyssel_01", title: "Pyssel-kit 01" },
+  { gameId: "pyssel_02", title: "Pyssel-kit 02" },
+  { gameId: "pyssel_03", title: "Pyssel-kit 03" },
+  { gameId: "pyssel_04", title: "Pyssel-kit 04" },
+  { gameId: "pyssel_05", title: "Pyssel-kit 05" },
+  { gameId: "pyssel_06", title: "Pyssel-kit 06" },
+  { gameId: "pyssel_07", title: "Pyssel-kit 07" },
+  { gameId: "pyssel_08", title: "Pyssel-kit 08" },
+  { gameId: "pyssel_09", title: "Pyssel-kit 09" },
+  { gameId: "pyssel_10", title: "Pyssel-kit 10" },
+  { gameId: "pyssel_11", title: "Pyssel-kit 11" },
+  { gameId: "pyssel_12", title: "Pyssel-kit 12" },
+  { gameId: "pyssel_13", title: "Pyssel-kit 13" },
+  { gameId: "pyssel_14", title: "Pyssel-kit 14" },
+  { gameId: "pyssel_15", title: "Pyssel-kit 15" },
+  { gameId: "pyssel_16", title: "Pyssel-kit 16" },
+  { gameId: "pyssel_17", title: "Pyssel-kit 17" },
+  { gameId: "pyssel_18", title: "Pyssel-kit 18" },
+  { gameId: "pyssel_19", title: "Pyssel-kit 19" },
+  { gameId: "pyssel_20", title: "Pyssel-kit 20" },
+  { gameId: "pyssel_21", title: "Pyssel-kit 21" },
+  { gameId: "pyssel_22", title: "Pyssel-kit 22" },
+  { gameId: "pyssel_23_vänster", title: "Pyssel-kit 23 (Vänster)" },
+  { gameId: "pyssel_24_vänster", title: "Pyssel-kit 24 (Vänster)" }
+  
 ];
 
 // ================== INIT FIRESTORE ==================
@@ -245,5 +270,6 @@ function toggleSidebar() {
   sidebar.classList.toggle('hidden');
   content.classList.toggle('sidebar-hidden');
 }
+
 
 
