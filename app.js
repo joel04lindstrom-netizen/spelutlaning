@@ -52,7 +52,7 @@ const gamesData = [
   { gameId: "skipbo", title: "Skipbo" },
   { gameId: "uno_1", title: "Uno (1)" },
   { gameId: "uno_2", title: "Uno (2)" },
-  { gameId: "vem_där", title: "Vem där"},
+  { gameId: "vem_där", title: "Vem där" },
   { gameId: "rush_hour_1", title: "Rush hour (1)" },
   { gameId: "rush_hour_2", title: "Rush hour (2)" },
   { gameId: "rush_hour_3", title: "Rush hour (3) "},
@@ -271,6 +271,7 @@ function toggleSidebar() {
   sidebar.classList.toggle('hidden');
   content.classList.toggle('sidebar-hidden');
 }
+
 
 
 
