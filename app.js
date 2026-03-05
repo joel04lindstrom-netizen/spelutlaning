@@ -79,7 +79,8 @@ const gamesData = [
   { gameId: "pyssel_21", title: "Pyssel-kit 21" },
   { gameId: "pyssel_22", title: "Pyssel-kit 22" },
   { gameId: "pyssel_23_vänster", title: "Pyssel-kit 23 (Vänster)" },
-  { gameId: "pyssel_24_vänster", title: "Pyssel-kit 24 (Vänster)" }
+  { gameId: "pyssel_24_vänster", title: "Pyssel-kit 24 (Vänster)" },
+  { gameId: "mix_max", title: "MIX-Max)" }
   
 ];
 
@@ -270,6 +271,7 @@ function toggleSidebar() {
   sidebar.classList.toggle('hidden');
   content.classList.toggle('sidebar-hidden');
 }
+
 
 
 
