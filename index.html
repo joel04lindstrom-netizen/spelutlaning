@@ -756,7 +756,7 @@ const classData = {
 // ═══════════════════════════════════════════
 //  INIT
 // ═══════════════════════════════════════════
-const INIT_VERSION = "v5";
+const INIT_VERSION = "v6";
 async function initData() {
   try {
     const meta = await db.collection("meta").doc("init").get();
@@ -1529,7 +1529,7 @@ function showError(e) {
 // ═══════════════════════════════════════════
 //  ADMIN
 // ═══════════════════════════════════════════
-const ADMIN_PASSWORD = "admin123"; // ← byt detta lösenord!
+const ADMIN_PASSWORD = "708090"; // ← lösenord
 
 function promptAdmin(btn) {
   const pw = prompt("Ange adminlösenord:");
